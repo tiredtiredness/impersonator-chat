@@ -20,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.variable} antialiased  bg-gradient-to-b from-violet-100 to-stone-100`}>{children}</body>
+      <body
+        className={`${inter.variable} bg-gradient-to-b from-violet-100 to-stone-200 antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
