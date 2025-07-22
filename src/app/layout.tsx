@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { ReactNode } from "react";
+import type {Metadata} from 'next';
+import {Inter} from 'next/font/google';
+import './globals.css';
+import {ReactNode} from 'react';
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["cyrillic", "latin"],
+  variable: '--font-inter',
+  subsets: ['cyrillic', 'latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Impersonator Chat",
-  description: "Chat with impersonator",
+  title: 'Impersonator Chat',
+  description: 'Chat with impersonator',
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} antialiased  bg-gradient-to-b from-violet-100 to-stone-100`}>{children}</body>
     </html>
   );
 }

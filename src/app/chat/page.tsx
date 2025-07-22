@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import {redirect} from 'next/navigation';
 
 export default function ChatRedirectPage() {
-  redirect("/chat/new");
+  redirect('/chat/new');
 }
