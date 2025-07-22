@@ -11,7 +11,7 @@ export function useMessages(chatId: string) {
   const messages =
     useLiveQuery<TMessage[]>(() =>
       messagesTable
-        .where('[chatId+createdAt]')
+        .where('[chatId+updatedAt]')
         .between([chatId, Dexie.minKey], [chatId, Dexie.maxKey])
         .toArray(),
     ) ?? [];
@@ -32,10 +32,9 @@ export function useMessages(chatId: string) {
     try {
       setIsLoading(true);
       createMessageInDB('user', text);
+      await chatsTable.where('id').equals(chatId).modify({updatedAt: new Date().toISOString()});
       const answer = await send(to, text);
       createMessageInDB('bot', answer);
-      await chatsTable.where('id').equals(chatId).modify({updatedAt: new Date().toISOString()});
-      console.log(await chatsTable.where('id').equals(chatId).toArray());
     } catch (err) {
       console.error(err);
     } finally {

@@ -1,7 +1,7 @@
 import {Metadata} from 'next';
 import {ChatPage} from '@/components/pages/ChatPage';
 
-export async function generateMetadata({params}: {params: {chatId: string}}): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: `Чат с имперсонатором | Impersonator Chat`,
     description:

@@ -4,18 +4,19 @@ import {TChat} from '@/types';
 import {groupBy} from '@/utils';
 import Link from 'next/link';
 import {useChat} from '@/hooks/useChat';
+import {useMobileMenu} from '@/contexts/MobileMenuContext';
 
 export function ChatHistory() {
   const {chats} = useChat();
-
+  const {setIsOpen} = useMobileMenu();
   if (!chats) return null;
 
   const groupedChats = groupBy(chats, 'updatedAt', (time: string) => {
-    return new Date(time).toISOString().split('T')[0];
+    return new Date(time).toLocaleString('en-US').split(',')[0];
   }).toSorted((d1, d2) => new Date(d2[0]).getTime() - new Date(d1[0]).getTime());
-
+  console.log(groupedChats);
   return (
-    <ul className="grow space-y-4 overflow-y-auto pr-4">
+    <ul className="grow space-y-4 overflow-y-auto px-4 md:pr-4">
       {groupedChats.map(([date, chats]) => (
         <li key={date}>
           <div className="flex flex-col gap-2">
@@ -32,7 +33,8 @@ export function ChatHistory() {
                 <li key={chat.id}>
                   <Link
                     href={`/chat/${chat.id}`}
-                    className="inline-flex w-full rounded-xl bg-neutral-100 px-3 py-1.5 text-sm backdrop-blur-sm backdrop-filter focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex w-full rounded-xl bg-zinc-50/50 px-3 py-1.5 text-sm backdrop-blur-sm backdrop-filter focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
                   >
                     {chat.name}
                   </Link>

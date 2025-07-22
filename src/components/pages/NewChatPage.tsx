@@ -1,16 +1,19 @@
-"use client";
+'use client';
 
-import {useRouter} from "next/navigation";
-import {useChat} from "@/hooks/useChat";
-import {FormEvent, useState} from "react";
-import Image from "next/image";
-import {UserPlusIcon} from "@phosphor-icons/react/ssr";
+import {useRouter} from 'next/navigation';
+import {useChat} from '@/hooks/useChat';
+import {FormEvent, useState} from 'react';
+import Image from 'next/image';
+import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
+import {useMobileMenu} from '@/contexts/MobileMenuContext';
+import {Input} from '@/components/Input';
+import {Button} from '@/components/Button';
 
 export function NewChatPage() {
   const router = useRouter();
   const {createChat, isLoading} = useChat();
-  const [name, setName] = useState<string>("");
-
+  const [name, setName] = useState<string>('');
+  const {setIsOpen} = useMobileMenu();
   const create = async (event: FormEvent) => {
     event.preventDefault();
     if (!name.trim()) {
@@ -24,7 +27,10 @@ export function NewChatPage() {
 
   return (
     <div className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
-      <header className="mx-6 my-6 flex items-center justify-center font-light">
+      <header className="relative mx-6 my-6 flex items-center justify-center font-light">
+        <Button onClick={() => setIsOpen(true)} className="absolute left-0 block md:hidden">
+          <ListIcon />
+        </Button>
         <h2 className="text-3xl">Новый чат</h2>
       </header>
       <main className="flex grow flex-col justify-center gap-6 rounded-4xl">
@@ -37,26 +43,19 @@ export function NewChatPage() {
             className="-scale-x-100 rounded-full"
           />
           <div>
-            <h2 className="text-xl">Привет, Максим!</h2>
+            <h2 className="text-xl">Привет!</h2>
             <p className="text-xl font-bold">С кем хочешь пообщаться?</p>
           </div>
         </div>
-        <form
-          onSubmit={create}
-          className="bg-opacity-10 bg-opacity-25 mx-6 flex gap-2 rounded-full bg-neutral-200/50 p-1.5 backdrop-blur-lg backdrop-filter"
-        >
-          <input
-            onChange={(e) => setName(e.target.value)}
+        <form onSubmit={create}>
+          <Input
+            value={name}
+            setValue={setName}
             placeholder="Например, Альберт Эйнштейн"
-            className="grow rounded-full px-2 py-1 text-gray-600 placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
-          ></input>
-          <button
-            type="submit"
-            disabled={isButtonDisabled}
-            className={` rounded-full bg-zinc-100 p-3 enabled:hover:bg-blue-500 enabled:hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 ${isButtonDisabled ? "cursor-not-allowed" : "cursor-pointer"} `}
-          >
-            <UserPlusIcon />
-          </button>
+            isDisabled={isLoading}
+            isButtonDisabled={isButtonDisabled}
+            buttonIcon={<UserPlusIcon />}
+          />
         </form>
       </main>
     </div>
