@@ -7,8 +7,8 @@ const db = new Dexie('impersonator') as Dexie & {
 };
 
 db.version(1).stores({
-  chats: 'id, createdAt, updatedAt, name',
-  messages: 'id, createdAt, updatedAt, chatId, type, text, [chatId+createdAt]',
+  chats: 'id, createdAt, updatedAt, name, [id]',
+  messages: 'id, createdAt, updatedAt, chatId, type, text, [chatId+updatedAt]',
 });
 
 export const chatsTable = db.table('chats');

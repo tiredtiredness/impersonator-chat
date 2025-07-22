@@ -1,17 +1,19 @@
-import {TChat} from "@/types";
-import {useLiveQuery} from "dexie-react-hooks";
-import {chatsTable} from "@/database/database.config";
-import {v4 as uuidv4} from "uuid";
-import {useState} from "react";
+import {TChat} from '@/types';
+import {useLiveQuery} from 'dexie-react-hooks';
+import {chatsTable} from '@/database/database.config';
+import {v4 as uuidv4} from 'uuid';
+import {useState} from 'react';
 
 export const useChat = (chatId?: string) => {
-  const chat = useLiveQuery<TChat>(() => {
-    if (!chatId) {
-      return;
-    }
-    return chatsTable.where({id: chatId}).first();
-  }) ?? null;
-  const chats = useLiveQuery<TChat[]>(() => chatsTable.orderBy("createdAt").toArray()) ?? [];
+  const chat =
+    useLiveQuery<TChat | null>(() => {
+      if (!chatId) {
+        return null;
+      }
+      return chatsTable.where({id: chatId}).first();
+    }) ?? null;
+  const chats =
+    useLiveQuery<TChat[]>(() => chatsTable.orderBy('updatedAt').reverse().toArray()) ?? [];
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function createChat(name: string) {
