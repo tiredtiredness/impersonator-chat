@@ -4,3 +4,7 @@
 body {
   @apply font-light;
 }
+
+pre {
+  text-wrap: wrap balance;
+}

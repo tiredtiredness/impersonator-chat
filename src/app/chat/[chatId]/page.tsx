@@ -12,6 +12,7 @@ import {useEffect, useRef, useState} from "react";
 import Markdown from "react-markdown";
 import {useMessages} from "@/hooks/useMessages";
 import {useChat} from "@/hooks/useChat";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{ chatId: string }>;
@@ -63,14 +64,14 @@ export default function ChatPage() {
       <header className="mx-6 my-6 flex items-center justify-between font-light">
         <button
           onClick={() => router.back()}
-          className="cursor-pointer rounded-full bg-neutral-100 p-3 transition-colors hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+          className="cursor-pointer rounded-full bg-neutral-100 p-3  hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
         >
           <ArrowLeftIcon />
         </button>
         <h2 className="text-3xl">Чат с {chat?.name}</h2>
         <Link
           href="/chat/new"
-          className="cursor-pointer rounded-full bg-neutral-100 p-3 transition-colors hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+          className="cursor-pointer rounded-full bg-neutral-100 p-3 hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
         >
           <XIcon />
         </Link>
@@ -82,15 +83,24 @@ export default function ChatPage() {
               key={msg.id}
               className={`flex ${msg.type === "bot" ? "justify-start" : "justify-end"}`}
             >
-              <div className="mx-6 max-w-[60%] space-y-1">
-                <div
-                  className={`w-full rounded-4xl bg-stone-50 ${msg.type === "bot" ? "p-10" : "p-6"} `}
-                >
-                  <Markdown>{msg.text}</Markdown>
+              <div className="mx-6 max-w-[60%] space-y-1 flex gap-6 items-start">
+                {msg.type==='bot' && <Image
+                  src={"/impersonator.webp"}
+                  alt={"impersonator head"}
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />}
+                <div>
+                  <div
+                    className={`w-full rounded-4xl bg-stone-50 ${msg.type === "bot" ? "p-10" : "p-6"} `}
+                  >
+                    <Markdown>{msg.text}</Markdown>
+                  </div>
+                  <time className="text-xs text-gray-600">
+                    {new Date(msg.createdAt).toLocaleString("ru")}
+                  </time>
                 </div>
-                <time className="text-xs text-gray-600">
-                  {new Date(msg.createdAt).toLocaleString("ru")}
-                </time>
               </div>
               <div ref={messagesEndRef}></div>
             </li>
@@ -101,11 +111,11 @@ export default function ChatPage() {
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             placeholder="Спроси меня что-нибудь..."
-            className="grow rounded-full px-2 py-1 text-gray-600 transition-colors placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+            className="grow rounded-full px-2 py-1 text-gray-600  placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           ></input>
           <button
             onClick={send}
-            className="-rotate-90 cursor-pointer rounded-full bg-neutral-100 p-3 transition-all ease-in-out hover:rotate-0 hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+            className="-rotate-90 cursor-pointer rounded-full bg-neutral-100 p-3 transition-transform  hover:rotate-0 hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           >
             <ArrowUpIcon />
           </button>

@@ -54,11 +54,11 @@ export default function NewChatPage() {
             name="name"
             id="name"
             placeholder="Например, Альберт Эйнштейн"
-            className="grow rounded-full px-2 py-1 text-gray-600 transition-colors placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+            className="grow rounded-full px-2 py-1 text-gray-600  placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           ></input>
           <button
             type="submit"
-            className="cursor-pointer rounded-full bg-zinc-100 p-3 transition-colors hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
+            className="cursor-pointer rounded-full bg-zinc-100 p-3  hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           >
             <UserPlusIcon />
           </button>

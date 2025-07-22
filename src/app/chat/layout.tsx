@@ -12,7 +12,7 @@ export default function Layout({children}: {children: ReactNode}) {
 
   return (
     <div className="flex h-dvh gap-6 pl-6">
-      <div className="mt-8 flex w-3xs flex-col gap-4 p-1">
+      <div className="mt-8 flex w-xs shrink-0 flex-col gap-4 p-1">
         <h1 className="flex items-center justify-center gap-1 text-3xl">
           Impersonator <HeadCircuitIcon />
         </h1>
