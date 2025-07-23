@@ -15,16 +15,20 @@ import {Button} from "@/shared/ui/button/Button";
 import {PHRASES} from "@/shared/lib";
 import {Chat} from "@/entities/chat/ui/Chat";
 import {ChatNotFound} from "@/widgets/chat-not-found/ui/ChatNotFound";
-import {useMessage} from "@/entities/message/model";
+import {useSendMessage} from "@/features/send-message";
+import {Loader} from "@/shared/ui";
 
 export function ChatPage() {
   const [msg, setMsg] = useState<string>("");
   const [phrase, setPhrase] = useState<string>("");
   const params = useParams();
   const chatId = params?.chatId as string | undefined;
-  const {chat} = useChat(chatId as string);
-  const {messages} = useMessages(chatId as string);
-  const {sendMessage, isLoading} = useMessage(chatId as string);
+  const {chat, isLoading: isLoadingChat} = useChat(chatId as string);
+  const {
+    messages,
+    isLoading: isLoadingMessages
+  } = useMessages(chatId as string);
+  const {sendMessage, isLoading: isSending} = useSendMessage(chatId as string);
   const {setIsOpen} = useMobileMenu();
 
   useEffect(() => {
@@ -41,7 +45,13 @@ export function ChatPage() {
     await sendMessage(chat.name, msg);
   };
 
-  if (!messages) return null;
+  if (isLoadingMessages || isLoadingChat) {
+    return <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
+      <div className="flex items-center justify-center grow">
+        <Loader width="32" />
+      </div>
+    </section>;
+  }
 
   if (!chat || !chatId) {
     return <ChatNotFound openMenu={() => setIsOpen(true)} />;
@@ -71,7 +81,7 @@ export function ChatPage() {
       <div className="relative flex grow flex-col overflow-y-hidden">
         <Chat
           messages={messages}
-          isLoading={isLoading}
+          isLoading={isSending}
         />
         <form
           onSubmit={send}
@@ -81,8 +91,8 @@ export function ChatPage() {
             value={msg}
             setValue={(value) => setMsg(value)}
             placeholder="Спроси меня что-нибудь..."
-            isDisabled={isLoading}
-            isButtonDisabled={isLoading || !msg.trim()}
+            isDisabled={isSending}
+            isButtonDisabled={isSending || !msg.trim()}
             buttonIcon={<ArrowUpIcon />}
             buttonTitle="Отправить сообщение"
           />

@@ -5,5 +5,5 @@ export const useChats = () => {
   const chats =
     useLiveQuery<TChat[]>(() => chatsTable.orderBy("updatedAt").reverse().toArray()) ?? [];
 
-  return {chats};
+  return {chats, isLoading: chats === undefined};
 };

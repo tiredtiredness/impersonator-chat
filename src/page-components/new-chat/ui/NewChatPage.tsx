@@ -1,7 +1,6 @@
 'use client';
 
 import {useRouter} from 'next/navigation';
-import {useChat} from '@/entities/chat/model/useChat';
 import {FormEvent, useState} from 'react';
 import Image from 'next/image';
 import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
@@ -9,10 +8,11 @@ import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
 import {Input} from '@/shared/ui/input/Input';
 import {Button} from '@/shared/ui/button/Button';
 import {validateName} from '@/shared/lib';
+import {useCreateChat} from "@/features/create-chat";
 
 export function NewChatPage() {
   const router = useRouter();
-  const {createChat, isLoading} = useChat();
+  const {createChat, isLoading} = useCreateChat();
   const [name, setName] = useState<string>('');
   const [error, setError] = useState('');
   const {setIsOpen} = useMobileMenu();

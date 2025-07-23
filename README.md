@@ -41,3 +41,5 @@
    `npm run dev`
 
 Приложение будет доступно по адресу: http://localhost:3000
+
+Дизайн : https://www.behance.net/gallery/217080729/Genie-Chatbot-AI-Assistant-UX-UI-Design

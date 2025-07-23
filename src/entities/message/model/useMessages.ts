@@ -11,5 +11,5 @@ export function useMessages(chatId: string) {
         .toArray(), [chatId]
     ) ?? [];
 
-  return {messages};
+  return {messages, isLoading: messages === undefined};
 }

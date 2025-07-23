@@ -3,7 +3,7 @@ import {send} from "@/entities/message/api/send";
 import {chatsTable} from "@/entities/chat/model";
 import {storeInDb} from "@/entities/message/api";
 
-export function useMessage(chatId: string) {
+export function useSendMessage(chatId: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sendMessage = useCallback(async function (to: string, text: string) {

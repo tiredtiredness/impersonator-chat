@@ -6,10 +6,17 @@ import {useMobileMenu} from "@/shared/hooks/useMobileMenu";
 import {TChat} from "@/entities/chat/model";
 import {ChatsTeardropIcon} from "@phosphor-icons/react/ssr";
 import {useChats} from "@/entities/chat/model/useChats";
+import {Loader} from "@/shared/ui";
 
 export function ChatHistory() {
-  const {chats} = useChats();
+  const {chats, isLoading: isLoadingChats} = useChats();
   const {setIsOpen} = useMobileMenu();
+
+  if (isLoadingChats) {
+    return <div className="flex items-center justify-center grow">
+      <Loader width="32" />
+    </div>;
+  }
 
   if (!chats) return null;
 
@@ -28,8 +35,8 @@ export function ChatHistory() {
       </div>
     );
   }
-  return (
 
+  return (
     <ul className="grow space-y-4 overflow-y-auto px-4 md:pr-4">
       {groupedChats.map(([date, chats]) => (
         <li key={date}>

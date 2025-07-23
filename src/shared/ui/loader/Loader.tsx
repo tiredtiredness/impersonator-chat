@@ -7,7 +7,7 @@ interface LoaderProps extends SVGProps<SVGSVGElement> {
 export function Loader({width, ...props}: LoaderProps) {
   return (
     <svg
-      fill="oklch(62.3% 0.214 259.815)"
+      fill="black"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       width={width}
