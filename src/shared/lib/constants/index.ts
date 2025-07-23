@@ -1,0 +1,1 @@
+export {PHRASES} from './phrases'
