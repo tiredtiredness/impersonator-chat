@@ -1,29 +1,60 @@
-import Link from 'next/link';
-import {ButtonHTMLAttributes, ReactNode} from 'react';
+import Link, {LinkProps} from "next/link";
+import {ButtonHTMLAttributes, ReactNode, AnchorHTMLAttributes} from "react";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+const baseStyles = `
+  cursor-pointer rounded-full bg-neutral-100 p-3 
+  focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 
+  transition-colors duration-200
+`;
+
+const interactiveStyles = `
+  hover:bg-blue-500 hover:text-white 
+  disabled:cursor-not-allowed disabled:opacity-50
+`;
+
+interface ButtonAsLinkProps extends Omit<LinkProps, "href">, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  href: string;
   children: ReactNode;
-  href?: string;
   className?: string;
 }
 
-export function Button({children, className, href, ...props}: ButtonProps) {
-  if (href) {
+interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  href?: never;
+  children: ReactNode;
+  className?: string;
+}
+
+type ButtonProps = ButtonAsLinkProps | ButtonAsButtonProps;
+
+function isLinkProps(props: ButtonProps): props is ButtonAsLinkProps {
+  return "href" in props && props.href !== undefined;
+}
+
+export function Button(props: ButtonProps) {
+  const {children, className = "", ...restProps} = props;
+
+  const combinedClassName = `${baseStyles} ${interactiveStyles} ${className}`.trim();
+
+  if (isLinkProps(props)) {
+    const {href, ...linkProps} = restProps as ButtonAsLinkProps;
+
     return (
       <Link
         href={href}
-        className={`cursor-pointer rounded-full bg-neutral-100 p-3 hover:bg-blue-500 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 ${className} `}
-        {...props}
+        className={combinedClassName}
+        {...linkProps}
       >
         {children}
       </Link>
     );
   }
 
+  const buttonProps = restProps as ButtonAsButtonProps;
+
   return (
     <button
-      className={`cursor-pointer rounded-full bg-neutral-100 p-3 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 enabled:hover:bg-blue-500 enabled:hover:text-white disabled:cursor-not-allowed ${className} `}
-      {...props}
+      className={combinedClassName}
+      {...buttonProps}
     >
       {children}
     </button>
