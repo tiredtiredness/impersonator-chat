@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react';
-import {send} from '@/entities/message/api/send';
 import {chatsTable} from '@/entities/chat/model';
 import {storeInDb} from '@/entities/message/api';
+import {send} from "@/app/actions";
 
 export function useSendMessage(chatId: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);

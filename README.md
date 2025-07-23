@@ -31,8 +31,8 @@
    Добавьте переменные окружения:
    ```
    NEXT_PUBLIC_API_URL=https://openrouter.ai/api/v1/chat/completions — адрес API OpenRouter, через который происходит отправка запросов к LLM.
-   NEXT_PUBLIC_API_KEY=your_key_here — ваш персональный API-ключ для доступа к OpenRouter.
    NEXT_PUBLIC_AI_MODEL=qwen/qwen3-235b-a22b-07-25:free — выбранная модель для генерации ответов. В данном случае используется бесплатная модель qwen.
+   API_KEY=your_key_here — ваш персональный API-ключ для доступа к OpenRouter.
    ```
 4. Установите зависимости
    `npm install`

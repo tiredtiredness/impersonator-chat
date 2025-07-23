@@ -1,26 +1,31 @@
-import {getSystemPrompt} from '@/shared/lib/utils';
+"use server";
+
+import {getSystemPrompt} from "@/shared/lib/utils";
 
 export async function send(to: string, message: string) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiKey = process.env.API_KEY;
+  const model = process.env.NEXT_PUBLIC_AI_MODEL;
+
   if (!apiUrl) {
     return;
   }
   try {
     const resp = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.NEXT_PUBLIC_AI_MODEL,
+        model: model,
         messages: [
           {
-            role: 'system',
+            role: "system",
             content: getSystemPrompt(to),
           },
           {
-            role: 'user',
+            role: "user",
             content: message,
           },
         ],
