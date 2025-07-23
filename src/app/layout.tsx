@@ -12,6 +12,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Impersonator Chat',
   description: 'Chat with impersonator',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/android-chrome-192x192.png',
+    shortcut: '/favicon-32x32.png',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
