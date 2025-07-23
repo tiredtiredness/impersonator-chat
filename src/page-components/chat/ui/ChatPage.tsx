@@ -1,33 +1,26 @@
-"use client";
+'use client';
 
-import {FormEvent, useEffect, useState} from "react";
-import {useParams} from "next/navigation";
-import {useChat} from "@/entities/chat/model/useChat";
-import {useMessages} from "@/entities/message/model/useMessages";
-import {
-  ArrowUpIcon,
-  ListIcon,
-  XIcon
-} from "@phosphor-icons/react/ssr";
-import {useMobileMenu} from "@/shared/hooks/useMobileMenu";
-import {Input} from "@/shared/ui/input/Input";
-import {Button} from "@/shared/ui/button/Button";
-import {PHRASES} from "@/shared/lib";
-import {Chat} from "@/entities/chat/ui/Chat";
-import {ChatNotFound} from "@/widgets/chat-not-found/ui/ChatNotFound";
-import {useSendMessage} from "@/features/send-message";
-import {Loader} from "@/shared/ui";
+import {FormEvent, useEffect, useState} from 'react';
+import {useParams} from 'next/navigation';
+import {useChat} from '@/entities/chat/model/useChat';
+import {useMessages} from '@/entities/message/model/useMessages';
+import {ArrowUpIcon, ListIcon, XIcon} from '@phosphor-icons/react/ssr';
+import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
+import {Input} from '@/shared/ui/input/Input';
+import {Button} from '@/shared/ui/button/Button';
+import {PHRASES} from '@/shared/lib';
+import {Chat} from '@/entities/chat/ui/Chat';
+import {ChatNotFound} from '@/widgets/chat-not-found/ui/ChatNotFound';
+import {useSendMessage} from '@/features/send-message';
+import {Loader} from '@/shared/ui';
 
 export function ChatPage() {
-  const [msg, setMsg] = useState<string>("");
-  const [phrase, setPhrase] = useState<string>("");
+  const [msg, setMsg] = useState<string>('');
+  const [phrase, setPhrase] = useState<string>('');
   const params = useParams();
   const chatId = params?.chatId as string | undefined;
   const {chat, isLoading: isLoadingChat} = useChat(chatId as string);
-  const {
-    messages,
-    isLoading: isLoadingMessages
-  } = useMessages(chatId as string);
+  const {messages, isLoading: isLoadingMessages} = useMessages(chatId as string);
   const {sendMessage, isLoading: isSending} = useSendMessage(chatId as string);
   const {setIsOpen} = useMobileMenu();
 
@@ -41,16 +34,18 @@ export function ChatPage() {
     if (!msg.trim() || !chat) {
       return;
     }
-    setMsg("");
+    setMsg('');
     await sendMessage(chat.name, msg);
   };
 
   if (isLoadingMessages || isLoadingChat) {
-    return <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
-      <div className="flex items-center justify-center grow">
-        <Loader width="32" />
-      </div>
-    </section>;
+    return (
+      <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
+        <div className="flex grow items-center justify-center">
+          <Loader width="32" />
+        </div>
+      </section>
+    );
   }
 
   if (!chat || !chatId) {
@@ -70,23 +65,13 @@ export function ChatPage() {
         <h2 className="mx-12 break-after-all text-center text-xl font-semibold text-wrap break-all">
           {chat?.name} {phrase}
         </h2>
-        <Button
-          href="/chat/new"
-          className="absolute right-0 cursor-pointer"
-          title="Закрыть чат"
-        >
+        <Button href="/chat/new" className="absolute right-0 cursor-pointer" title="Закрыть чат">
           <XIcon />
         </Button>
       </div>
       <div className="relative flex grow flex-col overflow-y-hidden">
-        <Chat
-          messages={messages}
-          isLoading={isSending}
-        />
-        <form
-          onSubmit={send}
-          className="absolute right-0 bottom-4 left-0 mx-2 lg:mx-6"
-        >
+        <Chat messages={messages} isLoading={isSending} name={chat.name} />
+        <form onSubmit={send} className="absolute right-0 bottom-4 left-0 mx-2 lg:mx-6">
           <Input
             value={msg}
             setValue={(value) => setMsg(value)}

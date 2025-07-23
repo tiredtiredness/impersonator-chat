@@ -1,37 +1,39 @@
-"use client";
+'use client';
 
-import {groupBy} from "@/shared/lib/utils";
-import Link from "next/link";
-import {useMobileMenu} from "@/shared/hooks/useMobileMenu";
-import {TChat} from "@/entities/chat/model";
-import {ChatsTeardropIcon} from "@phosphor-icons/react/ssr";
-import {useChats} from "@/entities/chat/model/useChats";
-import {Loader} from "@/shared/ui";
+import {groupBy} from '@/shared/lib/utils';
+import Link from 'next/link';
+import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
+import {TChat} from '@/entities/chat/model';
+import {ChatsTeardropIcon} from '@phosphor-icons/react/ssr';
+import {useChats} from '@/entities/chat/model/useChats';
+import {Loader} from '@/shared/ui';
 
 export function ChatHistory() {
   const {chats, isLoading: isLoadingChats} = useChats();
   const {setIsOpen} = useMobileMenu();
 
   if (isLoadingChats) {
-    return <div className="flex items-center justify-center grow">
-      <Loader width="32" />
-    </div>;
+    return (
+      <div className="flex grow items-center justify-center">
+        <Loader width="32" />
+      </div>
+    );
   }
 
   if (!chats) return null;
 
-  const groupedChats = groupBy(chats, "updatedAt", (time: string) => {
-    return new Date(time).toLocaleString("en-US").split(",")[0];
+  const groupedChats = groupBy(chats, 'updatedAt', (time: string) => {
+    return new Date(time).toLocaleString('en-US').split(',')[0];
   }).toSorted((d1, d2) => new Date(d2[0]).getTime() - new Date(d1[0]).getTime());
 
   if (!groupedChats.length) {
     return (
-      <div className="grow flex flex-col items-center justify-center py-12 text-center select-none">
-        <div className="mb-4 text-6xl animate-pulse"><ChatsTeardropIcon /></div>
+      <div className="flex grow flex-col items-center justify-center py-12 text-center select-none">
+        <div className="mb-4 animate-pulse text-6xl">
+          <ChatsTeardropIcon />
+        </div>
         <p className="mb-2 text-lg font-semibold">История чатов пуста</p>
-        <p className="max-w-xs">
-          Начни новый чат, чтобы здесь появилась история общения.
-        </p>
+        <p className="max-w-xs">Начни новый чат, чтобы здесь появилась история общения.</p>
       </div>
     );
   }
@@ -41,15 +43,12 @@ export function ChatHistory() {
       {groupedChats.map(([date, chats]) => (
         <li key={date}>
           <div className="flex flex-col gap-2">
-            <time
-              dateTime={date}
-              className="ml-3 text-sm font-bold"
-            >
-              {new Date(date).toLocaleDateString("ru", {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                year: "numeric",
+            <time dateTime={date} className="ml-3 text-sm font-bold">
+              {new Date(date).toLocaleDateString('ru', {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
               })}
             </time>
             <ul className="m-1 flex flex-col gap-2.5 pb-1">

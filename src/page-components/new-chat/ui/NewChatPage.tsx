@@ -8,7 +8,7 @@ import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
 import {Input} from '@/shared/ui/input/Input';
 import {Button} from '@/shared/ui/button/Button';
 import {validateName} from '@/shared/lib';
-import {useCreateChat} from "@/features/create-chat";
+import {useCreateChat} from '@/features/create-chat';
 
 export function NewChatPage() {
   const router = useRouter();

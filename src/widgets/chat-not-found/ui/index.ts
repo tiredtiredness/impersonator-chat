@@ -1,1 +1,1 @@
-export {ChatNotFound} from './ChatNotFound'
+export {ChatNotFound} from './ChatNotFound';

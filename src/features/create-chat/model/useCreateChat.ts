@@ -1,6 +1,6 @@
-import {v4 as uuidv4} from "uuid";
-import {useCallback, useState} from "react";
-import {chatsTable, TChat} from "@/entities/chat/model";
+import {v4 as uuidv4} from 'uuid';
+import {useCallback, useState} from 'react';
+import {chatsTable, TChat} from '@/entities/chat/model';
 
 export const useCreateChat = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

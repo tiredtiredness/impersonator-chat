@@ -1,1 +1,1 @@
-export {useCreateChat} from './model'
+export {useCreateChat} from './model';

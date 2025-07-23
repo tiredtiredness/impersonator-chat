@@ -1,2 +1,2 @@
 export {send} from './send';
-export {storeInDb} from './storeInDb'
+export {storeInDb} from './storeInDb';

@@ -1,1 +1,1 @@
-export {useSendMessage} from './model'
+export {useSendMessage} from './model';

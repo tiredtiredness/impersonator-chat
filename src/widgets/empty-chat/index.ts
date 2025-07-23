@@ -1,1 +1,1 @@
-export {EmptyChat} from './ui'
+export {EmptyChat} from './ui';

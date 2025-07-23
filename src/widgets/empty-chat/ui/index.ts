@@ -1,1 +1,1 @@
-export {EmptyChat} from './EmptyChat'
+export {EmptyChat} from './EmptyChat';
