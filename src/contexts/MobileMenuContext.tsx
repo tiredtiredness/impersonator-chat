@@ -43,12 +43,4 @@ export const MobileMenuProvider = ({children}: {children: ReactNode}) => {
   );
 };
 
-const useMobileMenu = () => {
-  const context = useContext(MobileMenuContext);
-  if (!context) {
-    throw new Error('useMobileMenu is used outside of MobileMenuProvider');
-  }
-  return context;
-};
-
-export {MobileMenuContext, useMobileMenu};
+export {MobileMenuContext};

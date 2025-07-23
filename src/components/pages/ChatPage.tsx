@@ -5,21 +5,12 @@ import {useParams} from "next/navigation";
 import {useChat} from "@/hooks/useChat";
 import {useMessages} from "@/hooks/useMessages";
 import {ArrowUpIcon, ListIcon, XIcon} from "@phosphor-icons/react/ssr";
-import {useMobileMenu} from "@/contexts/MobileMenuContext";
-import {Input} from "@/components/Input";
-import {Message} from "@/components/Message";
-import {Button} from "@/components/Button";
-import {Loader} from "@/components/Loader";
-
-const PHRASES = [
-  "слушает тебя",
-  "на связи",
-  "ждёт твоего вопроса",
-  "внимательно читает",
-  "думает о смысле жизни",
-  "ждет вопроса",
-  "онлайн", "здесь", "в эфире"
-];
+import {useMobileMenu} from "@/hooks/useMobileMenu";
+import {Input} from "@/components/ui/Input";
+import {Message} from "@/components/ui/Message";
+import {Button} from "@/components/ui/Button";
+import {Loader} from "@/components/ui/Loader";
+import {PHRASES} from "@/data";
 
 export function ChatPage() {
   const [msg, setMsg] = useState<string>("");

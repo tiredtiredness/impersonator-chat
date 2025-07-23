@@ -5,7 +5,7 @@ import {ReactNode} from 'react';
 import {ChatHistory} from '@/components/ChatHistory';
 import {XIcon} from '@phosphor-icons/react/ssr';
 import {useMobileMenu} from '@/contexts/MobileMenuContext';
-import {Button} from '@/components/Button';
+import {Button} from '@/components/ui/Button';
 
 export default function Layout({children}: {children: ReactNode}) {
   const {isOpen, setIsOpen} = useMobileMenu();

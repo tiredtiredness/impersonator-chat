@@ -1,5 +1,5 @@
 import {InputHTMLAttributes, ReactNode} from 'react';
-import {Button} from '@/components/Button';
+import {Button} from '@/components/ui/Button';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;

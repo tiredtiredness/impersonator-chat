@@ -4,7 +4,7 @@ import {TChat} from "@/types";
 import {groupBy} from "@/utils";
 import Link from "next/link";
 import {useChat} from "@/hooks/useChat";
-import {useMobileMenu} from "@/contexts/MobileMenuContext";
+import {useMobileMenu} from "@/hooks/useMobileMenu";
 
 export function ChatHistory() {
   const {chats} = useChat();

@@ -5,9 +5,9 @@ import {useChat} from '@/hooks/useChat';
 import {FormEvent, useState} from 'react';
 import Image from 'next/image';
 import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
-import {useMobileMenu} from '@/contexts/MobileMenuContext';
-import {Input} from '@/components/Input';
-import {Button} from '@/components/Button';
+import {useMobileMenu} from "@/hooks/useMobileMenu";
+import {Input} from '@/components/ui/Input';
+import {Button} from '@/components/ui/Button';
 
 export function NewChatPage() {
   const router = useRouter();
