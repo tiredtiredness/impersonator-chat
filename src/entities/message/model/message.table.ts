@@ -1,4 +1,3 @@
-import {db} from "@/shared/lib";
+import {db} from '@/shared/lib';
 
-export const messagesTable = db.table("messages");
-
+export const messagesTable = db.table('messages');

@@ -1,0 +1,93 @@
+"use client";
+
+import {FormEvent, useEffect, useState} from "react";
+import {useParams} from "next/navigation";
+import {useChat} from "@/entities/chat/model/useChat";
+import {useMessages} from "@/entities/message/model/useMessages";
+import {
+  ArrowUpIcon,
+  ListIcon,
+  XIcon
+} from "@phosphor-icons/react/ssr";
+import {useMobileMenu} from "@/shared/hooks/useMobileMenu";
+import {Input} from "@/shared/ui/input/Input";
+import {Button} from "@/shared/ui/button/Button";
+import {PHRASES} from "@/shared/lib";
+import {Chat} from "@/entities/chat/ui/Chat";
+import {ChatNotFound} from "@/widgets/chat-not-found/ui/ChatNotFound";
+import {useMessage} from "@/entities/message/model";
+
+export function ChatPage() {
+  const [msg, setMsg] = useState<string>("");
+  const [phrase, setPhrase] = useState<string>("");
+  const params = useParams();
+  const chatId = params?.chatId as string | undefined;
+  const {chat} = useChat(chatId as string);
+  const {messages} = useMessages(chatId as string);
+  const {sendMessage, isLoading} = useMessage(chatId as string);
+  const {setIsOpen} = useMobileMenu();
+
+  useEffect(() => {
+    const random = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+    setPhrase(random);
+  }, []);
+
+  const send = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!msg.trim() || !chat) {
+      return;
+    }
+    setMsg("");
+    await sendMessage(chat.name, msg);
+  };
+
+  if (!messages) return null;
+
+  if (!chat || !chatId) {
+    return <ChatNotFound openMenu={() => setIsOpen(true)} />;
+  }
+
+  return (
+    <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
+      <div className="relative mx-6 my-6 flex items-center justify-center font-light">
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="absolute left-0 block md:hidden"
+          title="Показать историю чатов"
+        >
+          <ListIcon />
+        </Button>
+        <h2 className="mx-12 break-after-all text-center text-xl font-semibold text-wrap break-all">
+          {chat?.name} {phrase}
+        </h2>
+        <Button
+          href="/chat/new"
+          className="absolute right-0 cursor-pointer"
+          title="Закрыть чат"
+        >
+          <XIcon />
+        </Button>
+      </div>
+      <div className="relative flex grow flex-col overflow-y-hidden">
+        <Chat
+          messages={messages}
+          isLoading={isLoading}
+        />
+        <form
+          onSubmit={send}
+          className="absolute right-0 bottom-4 left-0 mx-2 lg:mx-6"
+        >
+          <Input
+            value={msg}
+            setValue={(value) => setMsg(value)}
+            placeholder="Спроси меня что-нибудь..."
+            isDisabled={isLoading}
+            isButtonDisabled={isLoading || !msg.trim()}
+            buttonIcon={<ArrowUpIcon />}
+            buttonTitle="Отправить сообщение"
+          />
+        </form>
+      </div>
+    </section>
+  );
+}

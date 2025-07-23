@@ -1,27 +1,28 @@
-import Image from "next/image";
-import Markdown from "react-markdown";
 import {TMessage} from "@/entities/message/model";
+import {MarkdownText} from "@/entities/message/ui/MarkdownText";
+import {MessageTimestamp} from "@/entities/message/ui/MessageTimestamp";
+import {Avatar} from "@/entities/message/ui/Avatar";
 
-type MessageProps = TMessage & {};
+type MessageProps = TMessage;
 
 export function Message({text, createdAt, type}: MessageProps) {
+  const isBot = type === "bot";
   return (
-    <div className={`flex ${type === "bot" ? "justify-start" : "justify-end"}`}>
-      <div className="mx-2 lg:mx-6 flex max-w-[90%] items-start gap-2 lg:gap-6 space-y-1 lg:max-w-[60%]">
-        {type === "bot" && (
-          <Image
-            src={"/impersonator.webp"}
-            alt={"impersonator head"}
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
+    <div className={`flex ${isBot ? "justify-start" : "justify-end"}`}>
+      <div className="mx-2 flex max-w-[90%] items-start gap-2 space-y-1 lg:mx-6 lg:max-w-[60%] lg:gap-6">
+        {isBot && (
+          <Avatar />
         )}
         <div className="flex flex-col gap-1.5">
-          <div className={`wrap-anywhere w-full rounded-4xl bg-stone-50 ${type === "bot" ? "p-6 lg:p-10" : "p-4 lg:p-6"} `}>
-            <Markdown>{text}</Markdown>
+          <div
+            className={`w-full rounded-4xl bg-stone-50 wrap-anywhere ${isBot ? "p-6 lg:p-10" : "p-4 lg:p-6"} `}
+          >
+            <MarkdownText>{text}</MarkdownText>
           </div>
-          <time className={`${type === "bot" ? "text-left" : "text-right"} text-xs text-gray-600`}>{new Date(createdAt).toLocaleString("ru")}</time>
+          <MessageTimestamp
+            createdAt={createdAt}
+            isAlignedLeft={isBot}
+          />
         </div>
       </div>
     </div>

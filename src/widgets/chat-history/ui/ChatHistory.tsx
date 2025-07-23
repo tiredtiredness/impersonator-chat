@@ -2,20 +2,34 @@
 
 import {groupBy} from "@/shared/lib/utils";
 import Link from "next/link";
-import {useChat} from "@/entities/chat/model/useChat";
 import {useMobileMenu} from "@/shared/hooks/useMobileMenu";
 import {TChat} from "@/entities/chat/model";
+import {ChatsTeardropIcon} from "@phosphor-icons/react/ssr";
+import {useChats} from "@/entities/chat/model/useChats";
 
 export function ChatHistory() {
-  const {chats} = useChat();
+  const {chats} = useChats();
   const {setIsOpen} = useMobileMenu();
+
   if (!chats) return null;
 
   const groupedChats = groupBy(chats, "updatedAt", (time: string) => {
     return new Date(time).toLocaleString("en-US").split(",")[0];
   }).toSorted((d1, d2) => new Date(d2[0]).getTime() - new Date(d1[0]).getTime());
 
+  if (!groupedChats.length) {
+    return (
+      <div className="grow flex flex-col items-center justify-center py-12 text-center select-none">
+        <div className="mb-4 text-6xl animate-pulse"><ChatsTeardropIcon /></div>
+        <p className="mb-2 text-lg font-semibold">История чатов пуста</p>
+        <p className="max-w-xs">
+          Начни новый чат, чтобы здесь появилась история общения.
+        </p>
+      </div>
+    );
+  }
   return (
+
     <ul className="grow space-y-4 overflow-y-auto px-4 md:pr-4">
       {groupedChats.map(([date, chats]) => (
         <li key={date}>

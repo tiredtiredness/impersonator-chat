@@ -1,1 +1,1 @@
-export {ChatHistory} from './ChatHistory'
+export {ChatHistory} from './ChatHistory';

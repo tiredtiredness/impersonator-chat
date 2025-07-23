@@ -1,1 +1,1 @@
-export {PHRASES} from './phrases'
+export {PHRASES} from './phrases';

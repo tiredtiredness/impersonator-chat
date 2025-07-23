@@ -1,5 +1,5 @@
 import {Metadata} from 'next';
-import {ChatPage} from '@/pages/chat-page/ui/ChatPage';
+import {ChatPage} from '@/pages/chat/ui/ChatPage';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

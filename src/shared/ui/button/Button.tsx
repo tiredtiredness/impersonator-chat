@@ -1,5 +1,5 @@
-import Link, {LinkProps} from "next/link";
-import {ButtonHTMLAttributes, ReactNode, AnchorHTMLAttributes} from "react";
+import Link, {LinkProps} from 'next/link';
+import {ButtonHTMLAttributes, ReactNode, AnchorHTMLAttributes} from 'react';
 
 const baseStyles = `
   cursor-pointer rounded-full bg-neutral-100 p-3 
@@ -12,7 +12,9 @@ const interactiveStyles = `
   disabled:cursor-not-allowed disabled:opacity-50
 `;
 
-interface ButtonAsLinkProps extends Omit<LinkProps, "href">, Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+interface ButtonAsLinkProps
+  extends Omit<LinkProps, 'href'>,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
   href: string;
   children: ReactNode;
   className?: string;
@@ -27,11 +29,11 @@ interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 type ButtonProps = ButtonAsLinkProps | ButtonAsButtonProps;
 
 function isLinkProps(props: ButtonProps): props is ButtonAsLinkProps {
-  return "href" in props && props.href !== undefined;
+  return 'href' in props && props.href !== undefined;
 }
 
 export function Button(props: ButtonProps) {
-  const {children, className = "", ...restProps} = props;
+  const {children, className = '', ...restProps} = props;
 
   const combinedClassName = `${baseStyles} ${interactiveStyles} ${className}`.trim();
 
@@ -39,11 +41,7 @@ export function Button(props: ButtonProps) {
     const {href, ...linkProps} = restProps as ButtonAsLinkProps;
 
     return (
-      <Link
-        href={href}
-        className={combinedClassName}
-        {...linkProps}
-      >
+      <Link href={href} className={combinedClassName} {...linkProps}>
         {children}
       </Link>
     );
@@ -52,10 +50,7 @@ export function Button(props: ButtonProps) {
   const buttonProps = restProps as ButtonAsButtonProps;
 
   return (
-    <button
-      className={combinedClassName}
-      {...buttonProps}
-    >
+    <button className={combinedClassName} {...buttonProps}>
       {children}
     </button>
   );

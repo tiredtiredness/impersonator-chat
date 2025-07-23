@@ -1,1 +1,1 @@
-export {ChatHistory} from './ui'
+export {ChatHistory} from './ui';
