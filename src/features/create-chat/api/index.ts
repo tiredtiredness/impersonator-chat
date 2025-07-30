@@ -1,7 +1,7 @@
 export const generateImage = async (character: string): Promise<string | undefined> => {
   const url = "/api/proxy/generate";
   const payload = {
-    video_description: `${character}, portrait`,
+    video_description: `${character}, portrait, face`,
     negative_prompt: "blurry, low quality, distorted faces, poor lighting",
     aspect_ratio: "1:1",
     output_format: "webp",
