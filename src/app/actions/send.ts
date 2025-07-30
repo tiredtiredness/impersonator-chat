@@ -35,7 +35,6 @@ export async function send(to: string, message: string) {
     const res = await resp.json();
 
     return res?.choices?.[0]?.message.content;
-
   } catch (error) {
     console.error(error);
   }

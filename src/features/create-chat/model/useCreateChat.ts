@@ -1,7 +1,7 @@
-import {v4 as uuidv4} from "uuid";
-import {useCallback, useState} from "react";
-import {TChat, chatsTable} from "@/entities/chat/model";
-import {generateImage} from "@/features/create-chat/api";
+import {v4 as uuidv4} from 'uuid';
+import {useCallback, useState} from 'react';
+import {TChat, chatsTable} from '@/entities/chat/model';
+import {generateImage} from '@/features/create-chat/api';
 
 export const useCreateChat = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -29,7 +29,6 @@ export const useCreateChat = () => {
       });
 
       return newChat;
-
     } catch (error) {
       console.error(`Failed to create chat: ${error}`);
     } finally {

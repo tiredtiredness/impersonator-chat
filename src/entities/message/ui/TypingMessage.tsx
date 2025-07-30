@@ -1,7 +1,7 @@
 import {Avatar} from '@/entities/message/ui/Avatar';
 import {Loader} from '@/shared/ui';
 
-export function TypingMessage({name, botAvatarUrl}: {name: string, botAvatarUrl?: string}) {
+export function TypingMessage({name, botAvatarUrl}: {name: string; botAvatarUrl?: string}) {
   return (
     <div className="mx-2 flex w-[90%] items-start gap-2 space-y-1 lg:mx-6 lg:w-[60%] lg:gap-6">
       <Avatar url={botAvatarUrl} />

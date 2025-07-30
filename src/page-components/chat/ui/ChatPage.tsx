@@ -68,7 +68,12 @@ export function ChatPage() {
         </Button>
       </div>
       <div className="relative flex grow flex-col overflow-y-hidden">
-        <MessageList messages={messages} isLoading={isSending} name={chat.name} botAvatarUrl={chat.image}  />
+        <MessageList
+          messages={messages}
+          isLoading={isSending}
+          name={chat.name}
+          botAvatarUrl={chat.image}
+        />
         <form onSubmit={send} className="absolute right-0 bottom-4 left-0 mx-2 lg:mx-6">
           <Input
             value={msg}

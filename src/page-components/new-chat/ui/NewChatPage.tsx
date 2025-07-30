@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import {useRouter} from "next/navigation";
-import {FormEvent, useState} from "react";
-import {ListIcon, UserPlusIcon} from "@phosphor-icons/react/ssr";
-import {useCreateChat} from "@/features/create-chat";
-import {validateName} from "@/shared/lib";
-import {useMobileMenu} from "@/shared/lib/hooks/useMobileMenu";
-import {Button} from "@/shared/ui/button/Button";
-import {Input} from "@/shared/ui/input/Input";
+import Image from 'next/image';
+import {useRouter} from 'next/navigation';
+import {FormEvent, useEffect, useState} from 'react';
+import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
+import {useCreateChat} from '@/features/create-chat';
+import {validateName} from '@/shared/lib';
+import {useMobileMenu} from '@/shared/lib/hooks/useMobileMenu';
+import {Button} from '@/shared/ui/button/Button';
+import {Input} from '@/shared/ui/input/Input';
 
 export function NewChatPage() {
   const router = useRouter();
-  const {createChat, isLoading} = useCreateChat();
-  const [name, setName] = useState<string>("");
-  const [error, setError] = useState("");
+  const {createChat, isLoading, isGeneratingImage} = useCreateChat();
+  const [name, setName] = useState<string>('');
+  const [error, setError] = useState('');
   const {setIsOpen} = useMobileMenu();
 
   const create = async (event: FormEvent) => {
@@ -24,12 +24,16 @@ export function NewChatPage() {
       setError(nameError);
       return;
     }
-    setError("");
+    setError('');
     const newChat = await createChat(name);
     if (newChat?.id) {
       router.push(`/chat/${newChat.id}`);
     }
   };
+
+  useEffect(() => {
+    console.log('generating', isGeneratingImage);
+  }, [isGeneratingImage]);
 
   return (
     <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
@@ -58,10 +62,7 @@ export function NewChatPage() {
           </div>
         </div>
         <form onSubmit={create}>
-          <label
-            htmlFor="chat-name"
-            className="sr-only"
-          >
+          <label htmlFor="chat-name" className="sr-only">
             Имя персонажа
           </label>
           <Input
