@@ -1,13 +1,19 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-export function Avatar() {
+
+export function Avatar({url, size = 40, rounded = "full"}: {
+  url?: string,
+  size?: number,
+  rounded: 'xl' | 'full'
+}) {
   return (
     <Image
-      src={'/impersonator.webp'}
-      alt={'impersonator head'}
-      width={40}
-      height={40}
-      className="rounded-full"
+      src={url ?? "/impersonator.webp"}
+      alt={"impersonator head"}
+      width={size}
+      height={size}
+      className={`rounded-${rounded}`}
+      placeholder="empty"
     />
   );
 }

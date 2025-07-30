@@ -1,18 +1,16 @@
 'use client';
 
-import {FormEvent, useEffect, useState} from 'react';
 import {useParams} from 'next/navigation';
-import {useChat} from '@/entities/chat/model/useChat';
-import {useMessages} from '@/entities/message/model/useMessages';
+import {FormEvent, useEffect, useState} from 'react';
 import {ArrowUpIcon, ListIcon, XIcon} from '@phosphor-icons/react/ssr';
-import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
-import {Input} from '@/shared/ui/input/Input';
-import {Button} from '@/shared/ui/button/Button';
-import {PHRASES} from '@/shared/lib';
-import {Chat} from '@/entities/chat/ui/Chat';
-import {ChatNotFound} from '@/widgets/chat-not-found/ui/ChatNotFound';
+import {useChat} from '@/entities/chat/model';
+import {useMessages} from '@/entities/message/model/useMessages';
 import {useSendMessage} from '@/features/send-message';
-import {Loader} from '@/shared/ui';
+import {ChatNotFound} from '@/widgets/chat-not-found';
+import {MessageList} from '@/widgets/message-list';
+import {PHRASES} from '@/shared/lib';
+import {useMobileMenu} from '@/shared/lib/hooks/useMobileMenu';
+import {Button, Input, Loader} from '@/shared/ui';
 
 export function ChatPage() {
   const [msg, setMsg] = useState<string>('');
@@ -70,7 +68,7 @@ export function ChatPage() {
         </Button>
       </div>
       <div className="relative flex grow flex-col overflow-y-hidden">
-        <Chat messages={messages} isLoading={isSending} name={chat.name} />
+        <MessageList messages={messages} isLoading={isSending} name={chat.name} botAvatarUrl={chat.image}  />
         <form onSubmit={send} className="absolute right-0 bottom-4 left-0 mx-2 lg:mx-6">
           <Input
             value={msg}

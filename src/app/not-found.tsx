@@ -1,5 +1,5 @@
-import {Button} from '@/shared/ui/button/Button';
 import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
+import {Button} from '@/shared/ui/button/Button';
 
 export default function NotFound() {
   return (

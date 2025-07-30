@@ -3,4 +3,5 @@ export type TChat = {
   createdAt: string;
   updatedAt: string;
   name: string;
+  image?: string;
 };

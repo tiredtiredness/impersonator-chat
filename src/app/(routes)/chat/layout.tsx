@@ -1,11 +1,11 @@
 'use client';
 
-import {HeadCircuitIcon} from '@phosphor-icons/react/dist/ssr';
 import {ReactNode} from 'react';
-import {ChatHistory} from '@/widgets/chat-history/ui/ChatHistory';
+import {HeadCircuitIcon} from '@phosphor-icons/react/dist/ssr';
 import {XIcon} from '@phosphor-icons/react/ssr';
+import {ChatList} from '@/widgets/chat-list/ui';
+import {useMobileMenu} from '@/shared/lib/hooks/useMobileMenu';
 import {Button} from '@/shared/ui/button/Button';
-import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
 
 export default function Layout({children}: {children: ReactNode}) {
   const {isOpen, setIsOpen} = useMobileMenu();
@@ -29,7 +29,7 @@ export default function Layout({children}: {children: ReactNode}) {
           <XIcon />
         </Button>
 
-        <ChatHistory />
+        <ChatList />
       </aside>
       <main className="flex grow">{children}</main>
     </div>

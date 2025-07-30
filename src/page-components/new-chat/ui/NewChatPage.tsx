@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import {useRouter} from 'next/navigation';
-import {FormEvent, useState} from 'react';
-import Image from 'next/image';
-import {ListIcon, UserPlusIcon} from '@phosphor-icons/react/ssr';
-import {useMobileMenu} from '@/shared/hooks/useMobileMenu';
-import {Input} from '@/shared/ui/input/Input';
-import {Button} from '@/shared/ui/button/Button';
-import {validateName} from '@/shared/lib';
-import {useCreateChat} from '@/features/create-chat';
+import Image from "next/image";
+import {useRouter} from "next/navigation";
+import {FormEvent, useState} from "react";
+import {ListIcon, UserPlusIcon} from "@phosphor-icons/react/ssr";
+import {useCreateChat} from "@/features/create-chat";
+import {validateName} from "@/shared/lib";
+import {useMobileMenu} from "@/shared/lib/hooks/useMobileMenu";
+import {Button} from "@/shared/ui/button/Button";
+import {Input} from "@/shared/ui/input/Input";
 
 export function NewChatPage() {
   const router = useRouter();
   const {createChat, isLoading} = useCreateChat();
-  const [name, setName] = useState<string>('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState<string>("");
+  const [error, setError] = useState("");
   const {setIsOpen} = useMobileMenu();
 
   const create = async (event: FormEvent) => {
@@ -24,9 +24,11 @@ export function NewChatPage() {
       setError(nameError);
       return;
     }
-    setError('');
-    const chat = await createChat(name);
-    router.push(`/chat/${chat?.id}`);
+    setError("");
+    const newChat = await createChat(name);
+    if (newChat?.id) {
+      router.push(`/chat/${newChat.id}`);
+    }
   };
 
   return (
@@ -56,7 +58,10 @@ export function NewChatPage() {
           </div>
         </div>
         <form onSubmit={create}>
-          <label htmlFor="chat-name" className="sr-only">
+          <label
+            htmlFor="chat-name"
+            className="sr-only"
+          >
             Имя персонажа
           </label>
           <Input

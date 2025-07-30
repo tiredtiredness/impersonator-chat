@@ -1,7 +1,7 @@
+import {send} from '@/app/actions';
 import {useCallback, useState} from 'react';
 import {chatsTable} from '@/entities/chat/model';
 import {storeInDb} from '@/entities/message/api';
-import {send} from "@/app/actions";
 
 export function useSendMessage(chatId: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -18,6 +18,7 @@ export function useSendMessage(chatId: string) {
         await chatsTable.where('id').equals(chatId).modify({updatedAt: new Date().toISOString()});
 
         const answer = await send(to, text);
+
         if (!answer || typeof answer !== 'string' || !answer.trim()) {
           throw new Error('Пустой ответ от сервера');
         }

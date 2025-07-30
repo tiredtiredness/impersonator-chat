@@ -1,5 +1,5 @@
-import {Button} from '@/shared/ui';
 import {EmptyIcon, ListIcon, UserPlusIcon, XIcon} from '@phosphor-icons/react/ssr';
+import {Button} from '@/shared/ui';
 
 export function ChatNotFound({openMenu}: {openMenu: () => void}) {
   return (

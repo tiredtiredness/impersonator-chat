@@ -1,5 +1,5 @@
+import {NewChatPage} from '@/page-components/new-chat/ui';
 import {Metadata} from 'next';
-import {NewChatPage} from '@/page-components/new-chat/ui/NewChatPage';
 
 export const metadata: Metadata = {
   title: 'Новый чат | Impersonator Chat',

@@ -1,6 +1,6 @@
 'use client';
 
-import {createContext, ReactNode, useEffect, useState} from 'react';
+import {ReactNode, createContext, useEffect, useState} from 'react';
 
 type TMobileMenuContext = {
   isOpen: boolean;
@@ -26,6 +26,7 @@ export const MobileMenuProvider = ({children}: {children: ReactNode}) => {
     };
 
     handleResize();
+
     mediaQuery.addEventListener('change', handleResize);
 
     return () => mediaQuery.removeEventListener('change', handleResize);

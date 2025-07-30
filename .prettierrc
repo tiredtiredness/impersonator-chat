@@ -7,5 +7,19 @@
   "printWidth": 100,
   "tabWidth": 2,
   "arrowParens": "always",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^[react]",
+    "^./hooks",
+    "^~/icons",
+    "^@(?!/)",
+    "^@/entities",
+    "^@/features",
+    "^@/widget",
+    "^@/shared",
+    "^./ui",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }

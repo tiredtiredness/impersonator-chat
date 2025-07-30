@@ -1,5 +1,5 @@
 import {useLiveQuery} from 'dexie-react-hooks';
-import {chatsTable, TChat} from '@/entities/chat/model';
+import {TChat, chatsTable} from '@/entities/chat/model';
 
 export const useChat = (chatId?: string) => {
   const chat =

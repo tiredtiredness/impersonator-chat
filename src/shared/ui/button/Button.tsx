@@ -1,5 +1,5 @@
 import Link, {LinkProps} from 'next/link';
-import {ButtonHTMLAttributes, ReactNode, AnchorHTMLAttributes} from 'react';
+import {AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode} from 'react';
 
 const baseStyles = `
   cursor-pointer rounded-full bg-neutral-100 p-3 
