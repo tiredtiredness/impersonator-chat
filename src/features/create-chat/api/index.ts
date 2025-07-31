@@ -23,7 +23,7 @@ export const generateImage = async (character: string): Promise<string | undefin
     }
 
     const result = await response.json();
-    console.log(result);
+
     if (!result?.direct_url) {
       console.error('Image generation failed:', result?.error || 'No URL returned');
       return;
