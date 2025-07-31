@@ -35,7 +35,7 @@ export function MessageList({
     <ul className="flex flex-col gap-6 overflow-y-auto py-2 pb-16">
       {messages.map((msg) => (
         <li key={msg.id}>
-          <Message {...msg} botAvatarUrl={botAvatarUrl} />
+          <Message {...msg} botAvatarUrl={botAvatarUrl} botName={name} />
         </li>
       ))}
 

@@ -4,7 +4,6 @@ import {AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode} from 'react';
 const baseStyles = `
   cursor-pointer rounded-full bg-neutral-100 p-3 
   focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 
-  transition-colors duration-200
 `;
 
 const interactiveStyles = `

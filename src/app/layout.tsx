@@ -1,7 +1,8 @@
-import {MobileMenuProvider} from '@/app/contexts/MobileMenuContext';
 import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
 import {ReactNode} from 'react';
+import {ImageGenerationProvider} from '@/shared/lib/contexts';
+import {MobileMenuProvider} from '@/shared/lib/contexts/MobileMenuContext';
 import './globals.css';
 
 const inter = Inter({
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} bg-gradient-to-b from-violet-100 to-stone-200 font-light antialiased`}
       >
-        <MobileMenuProvider>{children}</MobileMenuProvider>
+        <ImageGenerationProvider>
+          <MobileMenuProvider>{children}</MobileMenuProvider>
+        </ImageGenerationProvider>
       </body>
     </html>
   );

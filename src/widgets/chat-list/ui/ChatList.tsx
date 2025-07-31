@@ -5,6 +5,7 @@ import {ChatsTeardropIcon} from '@phosphor-icons/react/ssr';
 import {TChat} from '@/entities/chat/model';
 import {useChats} from '@/entities/chat/model/useChats';
 import {Avatar} from '@/entities/message/ui/Avatar';
+import {useImageGeneration} from '@/shared/lib';
 import {useMobileMenu} from '@/shared/lib/hooks/useMobileMenu';
 import {groupBy} from '@/shared/lib/utils';
 import {Loader} from '@/shared/ui';
@@ -12,6 +13,7 @@ import {Loader} from '@/shared/ui';
 export function ChatList() {
   const {chats, isLoading: isLoadingChats} = useChats();
   const {setIsOpen} = useMobileMenu();
+  const {isImageGenerating} = useImageGeneration();
 
   const groupedChats = groupBy(chats, 'updatedAt', (time: string) => {
     return new Date(time).toLocaleString('en-US').split(',')[0];
@@ -20,7 +22,7 @@ export function ChatList() {
   if (isLoadingChats) {
     return (
       <div className="flex grow items-center justify-center">
-        <Loader width="32" />
+        <Loader size="32" />
       </div>
     );
   }
@@ -41,7 +43,7 @@ export function ChatList() {
 
   return (
     <ul className="grow space-y-4 overflow-y-auto px-4 md:pr-4">
-      {groupedChats.map(([date, chats]) => (
+      {groupedChats.map(([date, chats], chatGroupIndex: number) => (
         <li key={date}>
           <div className="flex flex-col gap-2">
             <time dateTime={date} className="ml-3 text-sm font-bold">
@@ -53,14 +55,19 @@ export function ChatList() {
               })}
             </time>
             <ul className="m-1 flex flex-col gap-2.5 pb-1">
-              {chats.map((chat: TChat) => (
+              {chats.map((chat: TChat, chatIndex: number) => (
                 <li key={chat.id}>
                   <Link
                     href={`/chat/${chat.id}`}
                     onClick={() => setIsOpen(false)}
                     className="flex gap-2 items-center w-full rounded-xl bg-zinc-50/50 p-1.5 text-sm backdrop-blur-sm backdrop-filter focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
                   >
-                    <Avatar url={chat.image} size={60} rounded="xl" />
+                    <Avatar
+                      isGenerating={chatGroupIndex === 0 && chatIndex === 0 && isImageGenerating}
+                      url={chat.image}
+                      size={60}
+                      rounded="xl"
+                    />
                     <span className="truncate text-center grow">{chat.name}</span>
                   </Link>
                 </li>

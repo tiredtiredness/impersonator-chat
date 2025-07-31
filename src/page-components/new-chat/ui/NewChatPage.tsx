@@ -12,7 +12,7 @@ import {Input} from '@/shared/ui/input/Input';
 
 export function NewChatPage() {
   const router = useRouter();
-  const {createChat, isLoading, isGeneratingImage} = useCreateChat();
+  const {createChat, isLoading} = useCreateChat();
   const [name, setName] = useState<string>('');
   const [error, setError] = useState('');
   const {setIsOpen} = useMobileMenu();
@@ -30,10 +30,6 @@ export function NewChatPage() {
       router.push(`/chat/${newChat.id}`);
     }
   };
-
-  useEffect(() => {
-    console.log('generating', isGeneratingImage);
-  }, [isGeneratingImage]);
 
   return (
     <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">

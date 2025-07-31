@@ -4,6 +4,7 @@ import {useParams} from 'next/navigation';
 import {FormEvent, useEffect, useState} from 'react';
 import {ArrowUpIcon, ListIcon, XIcon} from '@phosphor-icons/react/ssr';
 import {useChat} from '@/entities/chat/model';
+import {TApiMessage} from '@/entities/message/model';
 import {useMessages} from '@/entities/message/model/useMessages';
 import {useSendMessage} from '@/features/send-message';
 import {ChatNotFound} from '@/widgets/chat-not-found';
@@ -33,14 +34,20 @@ export function ChatPage() {
       return;
     }
     setMsg('');
-    await sendMessage(chat.name, msg);
+
+    const formattedMessages: TApiMessage[] = messages.map((msg) => ({
+      role: msg.type === 'bot' ? 'assistant' : 'user',
+      content: msg.text,
+    }));
+
+    await sendMessage(chat.name, msg, formattedMessages);
   };
 
   if (isLoadingMessages || isLoadingChat) {
     return (
       <section className="m-1 flex grow flex-col rounded-4xl bg-zinc-50/50 p-1">
         <div className="flex grow items-center justify-center">
-          <Loader width="32" />
+          <Loader size="32" />
         </div>
       </section>
     );

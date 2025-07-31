@@ -6,3 +6,8 @@ export type TMessage = {
   text: string;
   chatId: string;
 };
+
+export type TApiMessage = {
+  role: 'assistant' | 'user';
+  content: string;
+};
