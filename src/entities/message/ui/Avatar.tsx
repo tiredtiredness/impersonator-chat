@@ -30,6 +30,7 @@ export function Avatar({url, size = 40, rounded = 'full', who, isGenerating = fa
           className={`rounded-${rounded}`}
           placeholder='empty'
           loading='lazy'
+          unoptimized
         />
       )}
     </div>
