@@ -27,8 +27,16 @@ export const useCreateChat = () => {
 
         generateImage(name)
           .then(async (imageUrl) => {
+            const downloadRes = await fetch(`/api/save-image`, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({imageUrl}),
+            });
+
+            const blob = await downloadRes.blob();
+
             await chatsTable.update(newChat.id, {
-              image: imageUrl,
+              image: blob,
               updatedAt: new Date().toISOString(),
             });
           })

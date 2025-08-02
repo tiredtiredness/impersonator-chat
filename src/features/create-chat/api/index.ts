@@ -1,4 +1,4 @@
-export const generateImage = async (character: string): Promise<string | undefined> => {
+export const generateImage = async (character: string): Promise<Blob | undefined> => {
   const url = '/api/proxy/generate';
   const payload = {
     video_description: `${character}, portrait, face`,

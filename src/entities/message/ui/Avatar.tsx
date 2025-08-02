@@ -1,21 +1,21 @@
 import Image from 'next/image';
-import { Loader } from '@/shared/ui';
+import {Loader} from '@/shared/ui';
 
 type AvatarProps = {
-  url?: string;
+  url?: string | null;
   size?: number;
   rounded?: 'xl' | 'full';
   who?: string;
   isGenerating?: boolean;
 };
 
-export function Avatar({ url, size = 40, rounded = 'full', who, isGenerating = false }: AvatarProps) {
+export function Avatar({url, size = 40, rounded = 'full', who, isGenerating = false}: AvatarProps) {
   const borderRadius = rounded === 'full' ? 'rounded-full' : 'rounded-xl';
 
   return (
     <div
       className={`relative shrink-0 ${borderRadius} bg-violet-100 overflow-hidden`}
-      style={{ width: size, height: size }}
+      style={{width: size, height: size}}
     >
       {url && !isGenerating && (
         <Image

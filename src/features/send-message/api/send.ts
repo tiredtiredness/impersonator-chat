@@ -1,7 +1,7 @@
-'use server';
+"use server";
 
-import {TApiMessage} from '@/entities/message/model';
-import {getSystemPrompt} from '@/shared/lib/utils';
+import {TApiMessage} from "@/entities/message/model";
+import {getSystemPrompt} from "@/shared/lib/utils";
 
 export async function send(to: string, message: string, history: TApiMessage[]) {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -14,22 +14,22 @@ export async function send(to: string, message: string, history: TApiMessage[]) 
 
   const messages = [
     {
-      role: 'system',
+      role: "system",
       content: getSystemPrompt(to),
     },
     ...history,
     {
-      role: 'user',
+      role: "user",
       content: message,
     },
   ];
 
   try {
     const resp = await fetch(apiUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         model: model,

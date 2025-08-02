@@ -1,5 +1,5 @@
-import {InputHTMLAttributes, ReactNode} from "react";
-import {Button} from "@/shared/ui/button/Button";
+import {InputHTMLAttributes, ReactNode} from 'react';
+import {Button} from '@/shared/ui/button/Button';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
@@ -11,14 +11,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({
-                        value,
-                        setValue,
-                        isDisabled = false,
-                        isButtonDisabled = false,
-                        buttonIcon,
-                        buttonTitle,
-                        ...props
-                      }: InputProps) {
+  value,
+  setValue,
+  isDisabled = false,
+  isButtonDisabled = false,
+  buttonIcon,
+  buttonTitle,
+  ...props
+}: InputProps) {
   return (
     <div className="bg-opacity-10 bg-opacity-25 flex grow gap-2 rounded-full bg-zinc-200/50 p-1.5 backdrop-blur-lg backdrop-filter">
       <input
@@ -28,11 +28,7 @@ export function Input({
         className="grow rounded-full px-2 py-1 text-gray-600 placeholder:text-xs focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 disabled:cursor-not-allowed"
         {...props}
       ></input>
-      <Button
-        type="submit"
-        disabled={isButtonDisabled}
-        title={buttonTitle}
-      >
+      <Button type="submit" disabled={isButtonDisabled} title={buttonTitle}>
         {buttonIcon}
       </Button>
     </div>

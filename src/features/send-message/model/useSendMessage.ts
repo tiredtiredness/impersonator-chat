@@ -1,19 +1,18 @@
-import {send} from '@/app/actions';
 import {useCallback, useState} from 'react';
 import {chatsTable} from '@/entities/chat/model';
 import {storeInDb} from '@/entities/message/api';
 import {TApiMessage} from '@/entities/message/model';
+import {send} from '@/features/send-message/api';
 
-export function useSendMessage(chatId: string) {
+export function useSendMessage(chatId?: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const sendMessage = useCallback(
     async function (to: string, text: string, history: TApiMessage[]) {
+      if (!text.trim() || !chatId) {
+        return;
+      }
       try {
-        if (!text.trim()) {
-          return;
-        }
-
         setIsLoading(true);
         await storeInDb(chatId, 'user', text);
         await chatsTable.where('id').equals(chatId).modify({updatedAt: new Date().toISOString()});

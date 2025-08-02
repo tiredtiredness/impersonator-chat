@@ -5,7 +5,7 @@ import {ChatsTeardropIcon} from '@phosphor-icons/react/ssr';
 import {TChat} from '@/entities/chat/model';
 import {useChats} from '@/entities/chat/model/useChats';
 import {Avatar} from '@/entities/message/ui/Avatar';
-import {useImageGeneration} from '@/shared/lib';
+import {createUrlFromBlob, useImageGeneration} from '@/shared/lib';
 import {useMobileMenu} from '@/shared/lib/hooks/useMobileMenu';
 import {groupBy} from '@/shared/lib/utils';
 import {Loader} from '@/shared/ui';
@@ -64,7 +64,7 @@ export function ChatList() {
                   >
                     <Avatar
                       isGenerating={chatGroupIndex === 0 && chatIndex === 0 && isImageGenerating}
-                      url={chat.image}
+                      url={createUrlFromBlob(chat.image)}
                       size={60}
                       rounded="xl"
                     />
