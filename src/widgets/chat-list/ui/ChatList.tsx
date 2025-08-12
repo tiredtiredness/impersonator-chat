@@ -76,7 +76,7 @@ export function ChatList() {
                       />
                       <span className="truncate text-center grow">{chat.name}</span>
                     </Link>
-                    <Button className='group-hover:opacity-100 opacity-0 absolute top-1/2 right-2 -translate-y-1/2' onClick={()=>deleteChat(chat.id)} ><Trash /></Button>
+                    <Button className='group-hover-always:opacity-100 group-hover-always:pointer-events-auto pointer-events-none opacity-0 absolute top-1/2 right-2 -translate-y-1/2 ' onClick={()=>deleteChat(chat.id)} ><Trash /></Button>
                   </div>
                 </li>
               ))}

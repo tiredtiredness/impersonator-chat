@@ -9,6 +9,7 @@ const baseStyles = `
 const interactiveStyles = `
   hover:bg-blue-500 hover:text-white 
   disabled:cursor-not-allowed disabled:opacity-50
+  active:bg-blue-500 active:text-white 
 `;
 
 interface ButtonAsLinkProps

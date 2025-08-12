@@ -4,3 +4,16 @@
 pre {
   text-wrap: wrap balance;
 }
+
+@custom-variant hover-always {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  @media not all and (hover: hover) {
+    & {
+      @slot;
+    }
+  }
+}
