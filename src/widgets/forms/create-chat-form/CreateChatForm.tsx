@@ -2,7 +2,7 @@ import {useRouter} from 'next/navigation';
 import {FormEvent, useState} from 'react';
 import {UserPlusIcon} from '@phosphor-icons/react/ssr';
 import {useCreateChat} from '@/features/create-chat';
-import {validateName} from '@/shared/lib';
+import {useImageGeneration, validateName} from "@/shared/lib";
 import {Input} from '@/shared/ui';
 
 export function CreateChatForm() {
@@ -10,6 +10,7 @@ export function CreateChatForm() {
   const {createChat, isLoading} = useCreateChat();
   const [name, setName] = useState<string>('');
   const [error, setError] = useState('');
+  const {isImageGenerating} = useImageGeneration();
 
   const create = async (event: FormEvent) => {
     event.preventDefault();
@@ -36,7 +37,7 @@ export function CreateChatForm() {
         setValue={setName}
         placeholder="Например, Альберт Эйнштейн"
         isDisabled={isLoading}
-        isButtonDisabled={isLoading}
+        isButtonDisabled={isLoading || isImageGenerating}
         buttonIcon={<UserPlusIcon />}
         buttonTitle="Создать чат"
       />

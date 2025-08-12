@@ -35,7 +35,6 @@ export function SendMessageForm({chat, messages, send, isSending}: SendMessageFo
         value={msg}
         setValue={(value) => setMsg(value)}
         placeholder="Спроси меня что-нибудь..."
-        isDisabled={isSending}
         isButtonDisabled={isSending || !msg.trim()}
         buttonIcon={<ArrowUpIcon />}
         buttonTitle="Отправить сообщение"

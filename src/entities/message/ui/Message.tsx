@@ -9,7 +9,7 @@ export function Message({text, createdAt, type, botAvatarUrl, botName}: MessageP
   const isBot = type === 'bot';
   return (
     <div className={`flex ${isBot ? 'justify-start' : 'justify-end'}`}>
-      <div className="mx-2 flex max-w-[90%] items-start gap-2 space-y-1 lg:mx-6 lg:max-w-[60%] lg:gap-6">
+      <div className={`${isBot ? 'mx-2 lg:mx-6' : 'mx-4 lg:mx-6'}  flex max-w-[90%] items-start gap-2 space-y-1  lg:max-w-[60%] lg:gap-6`}>
         {isBot && <Avatar url={botAvatarUrl} who={botAvatarUrl && botName} size={40} />}
         <div className="flex flex-col gap-1.5">
           <div
