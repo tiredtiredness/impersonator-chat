@@ -1,16 +1,24 @@
-import Image from 'next/image';
-import {Loader} from '@/shared/ui';
+import Image from "next/image";
+import {Loader} from "@/shared/ui";
+import {memo} from "react";
 
 type AvatarProps = {
   url?: string | null;
   size?: number;
-  rounded?: 'xl' | 'full';
+  rounded?: "xl" | "full";
   who?: string;
   isGenerating?: boolean;
 };
 
-export function Avatar({url, size = 40, rounded = 'full', who, isGenerating = false}: AvatarProps) {
-  const borderRadius = rounded === 'full' ? 'rounded-full' : 'rounded-xl';
+function AvatarComponent({
+                           url,
+                           size = 40,
+                           rounded = "full",
+                           who,
+                           isGenerating = false
+                         }: AvatarProps) {
+  const borderRadius = rounded === "full" ? "rounded-full" : "rounded-xl";
+  const loaderSize = Math.max(12, size * 0.5);
 
   return (
     <div
@@ -20,7 +28,7 @@ export function Avatar({url, size = 40, rounded = 'full', who, isGenerating = fa
       {url && !isGenerating && (
         <Image
           src={url}
-          alt={who ? `Аватар, на котором изображен ${who}` : 'Аватар бота'}
+          alt={who ? `Аватар, на котором изображен ${who}` : "Аватар бота"}
           width={size}
           height={size}
           className={`object-cover w-full h-full ${borderRadius}`}
@@ -32,9 +40,14 @@ export function Avatar({url, size = 40, rounded = 'full', who, isGenerating = fa
 
       {(isGenerating || !url) && (
         <div className="absolute inset-0 flex items-center justify-center animate-pulse z-10">
-          {isGenerating && <Loader type="spinner" size={size - 36} />}
+          {isGenerating && <Loader
+            type="spinner"
+            size={loaderSize}
+          />}
         </div>
       )}
     </div>
   );
 }
+
+export const Avatar = memo(AvatarComponent);

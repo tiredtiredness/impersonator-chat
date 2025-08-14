@@ -2,13 +2,13 @@
 
 import {useParams} from 'next/navigation';
 import {useEffect, useState} from 'react';
-import {useChat} from '@/entities/chat/model';
+import {useBotProfile, useChat} from "@/entities/chat/model";
 import {useMessages} from '@/entities/message/model';
 import {useSendMessage} from '@/features/send-message';
 import {ChatNotFound} from '@/widgets/chat-not-found';
 import {SendMessageForm} from '@/widgets/forms';
 import {MessageList} from '@/widgets/message-list';
-import {PHRASES, createUrlFromBlob} from '@/shared/lib';
+import {PHRASES} from '@/shared/lib';
 import {useMobileMenu} from '@/shared/lib/hooks';
 import {ChatHeader, Loader} from '@/shared/ui';
 
@@ -19,6 +19,7 @@ export function ChatPage() {
   const {chat, isLoading: isLoadingChat} = useChat(chatId as string);
   const {messages, isLoading: isLoadingMessages} = useMessages(chatId as string);
   const {sendMessage, isLoading: isSending} = useSendMessage(chat?.id);
+  const {url, name} = useBotProfile(chatId as string)
 
   const {setIsOpen} = useMobileMenu();
 
@@ -52,8 +53,8 @@ export function ChatPage() {
         <MessageList
           messages={messages}
           isLoading={isSending}
-          name={chat.name}
-          botAvatarUrl={createUrlFromBlob(chat.image)}
+          name={name ?? ''}
+          botAvatarUrl={url}
         />
         <SendMessageForm chat={chat} messages={messages} send={sendMessage} isSending={isSending} />
       </div>

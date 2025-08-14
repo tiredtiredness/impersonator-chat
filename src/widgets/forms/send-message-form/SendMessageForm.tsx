@@ -7,7 +7,7 @@ import {Input} from '@/shared/ui';
 type SendMessageFormProps = {
   chat: TChat;
   messages: TMessage[];
-  send: (chat: string, text: string, history: TApiMessage[]) => Promise<void>;
+  send: (chat: string, text: string, history: TApiMessage[]) => Promise<string | undefined>;
   isSending: boolean;
 };
 

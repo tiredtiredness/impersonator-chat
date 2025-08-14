@@ -1,7 +1,8 @@
 import {useLiveQuery} from "dexie-react-hooks";
 import {TChat, chatsTable} from "@/entities/chat/model";
+import {createUrlFromBlob} from "@/shared/lib";
 
-export const useChat = (chatId?: string) => {
+export const useBotProfile = (chatId?: string) => {
   const chat =
     useLiveQuery<TChat | null>(() => {
       if (!chatId) {
@@ -10,7 +11,7 @@ export const useChat = (chatId?: string) => {
       return chatsTable.where({id: chatId}).first();
     }, [chatId]) ?? null;
 
-  const isLoading = chat === undefined;
-
-  return {chat, isLoading};
+  const url = createUrlFromBlob(chat?.image);
+  const name = chat?.name
+  return {url, name};
 };
